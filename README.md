@@ -7,19 +7,19 @@ iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipelin
 
 ---
 
-## ✨ Highlights
+## Highlights
 
-- 🎧 **Hands‑free exam mode:** Voice commands like “repeat”, “repeat slower”, “ready to answer”, “next/previous question”.
-- 🔊 **Offline Text‑to‑Speech:** `pyttsx3` + `pygame` with voice & rate controls.
-- 📄 **PDF ingestion:** PyMuPDF text extraction; optional OCR (EasyOCR) for scans.
-- 🧠 **Question detection via AnythingLLM:** Extracts questions/options from the PDF text and reads them aloud; **explicitly avoids giving hints/answers**.
-- 🗣️ **Whisper‑based speech‑to‑text:** Live voice input with ONNX/Torch “standalone” Whisper; attempts **QNN (Snapdragon® NPU) ➜ CPU fallback**.
-- 🧩 **Clean API + Electron UI:** Flask backend at `127.0.0.1:5000` with an Electron front‑end.
-- 🔐 **Privacy‑first:** Entire flow runs locally; no exam data is uploaded.
+- **Hands‑free exam mode:** Voice commands like “repeat”, “repeat slower”, “ready to answer”, “next/previous question”.
+- **Offline Text‑to‑Speech:** `pyttsx3` + `pygame` with voice & rate controls.
+- **PDF ingestion:** PyMuPDF text extraction; optional OCR (EasyOCR) for scans.
+- **Question detection via AnythingLLM:** Extracts questions/options from the PDF text and reads them aloud; **explicitly avoids giving hints/answers**.
+- **Whisper‑based speech‑to‑text:** Live voice input with ONNX/Torch “standalone” Whisper; attempts **QNN (Snapdragon® NPU) ➜ CPU fallback**.
+- **Clean API + Electron UI:** Flask backend at `127.0.0.1:5000` with an Electron front‑end.
+- **Privacy‑first:** Entire flow runs locally; no exam data is uploaded.
 
 ---
 
-## 🗂️ Repository Layout
+## Repository Layout
 
 ```text
 iLumina-anythingllm/
@@ -105,7 +105,7 @@ Key bits:
 
 ---
 
-## 🚀 Quickstart
+## Quickstart
 
 ### 1) System prerequisites
 - **Python** 3.10+ (recommended)
@@ -172,7 +172,7 @@ curl http://127.0.0.1:5000/api/health
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### AnythingLLM (reader‑only)
 Update `backend/anythingllm_config.yaml`:
@@ -199,7 +199,7 @@ The same YAML exposes **reading pace**, **option pauses**, and **question number
 
 ---
 
-## 🖥️ How It Works
+## How It Works
 
 1. **Upload PDF** (`/api/exam/upload`) → text extracted via PyMuPDF (OCR optional).
 2. **AnythingLLM pass**: splits text into questions/options with a “reader‑only” system prompt.
@@ -217,7 +217,7 @@ The same YAML exposes **reading pace**, **option pauses**, and **question number
 
 ---
 
-## 🔌 REST API (selected)
+## REST API (selected)
 
 Base URL: `http://127.0.0.1:5000`
 
@@ -240,7 +240,7 @@ curl -F "file=@uploads/dc781842-3d1a-470d-8a1e-488f20208dd0_Undergrad_English_Sa
 
 ---
 
-## 🧪 Local Testing
+## Local Testing
 
 Quick scripts in the repo:
 - `test_exam.py` – creates a tiny PDF on the fly and drives the core endpoints
@@ -257,7 +257,7 @@ python test_exam.py
 
 ---
 
-## ⚡ Acceleration (QNN on Snapdragon®)
+## Acceleration (QNN on Snapdragon®)
 
 The “standalone” Whisper can run with **ONNX Runtime**. The code will try loading the **QNN Execution Provider** first and gracefully fall back to CPU if unavailable:
 
@@ -269,7 +269,7 @@ If you’re on a **Copilot+ PC (Snapdragon X series)** and have access to Qualco
 
 ---
 
-## 🧱 Building an .exe / desktop bundle
+## Building an .exe / desktop bundle
 
 ### PyInstaller (Windows/macOS/Linux)
 
@@ -290,7 +290,7 @@ npm run build     # use electron‑builder targets (nsis/dmg/AppImage)
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 - **PyMuPDF not available:** install `PyMuPDF` (see `test-app-requirements.txt`). Without it, PDF extraction is limited.
 - **PyAudio install errors (macOS):** `brew install portaudio && pip install pyaudio`.
@@ -300,13 +300,13 @@ npm run build     # use electron‑builder targets (nsis/dmg/AppImage)
 
 ---
 
-## 📜 License
+## License
 
 MIT — see [LICENSE](LICENSE).
 
 ---
 
-## 🤝 Contributing
+##Contributing
 
 Please read:
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
@@ -316,8 +316,8 @@ PRs that improve accessibility, add languages, or harden the offline story are e
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- **OpenAI Whisper** (speech‑to‑text)
+- **Qualcomm Whisper and EverythingLLM ** (speech‑to‑text)
 - **Qualcomm AI assets** and QNN EP notes for NPU acceleration
 - **PyMuPDF**, **EasyOCR**, **pyttsx3**, **pygame**, and the **Electron** community
