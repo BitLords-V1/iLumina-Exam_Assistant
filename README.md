@@ -1,6 +1,19 @@
 # iLumina – Privacy‑Preserving Exam Reader (w/ AnythingLLM)
 
-**Desktop app for accessible, offline exam reading.**  
+**Problem Statement**
+Students with dyslexia, visual impairments, or other reading difficulties face significant barriers during in-person exams. The strict, no-internet policy of exam rooms prevents them from using modern accessibility tools. This creates an unfair disadvantage, hindering their academic performance and independence. Our solution addresses this by providing a secure, on-device AI assistant.
+
+**Executive Summary**
+iLumina is a fully offline Windows desktop application that converts exam papers into clear, navigable audio, built to support students with dyslexia and low vision during proctored exams. The system ingests a PDF of the exam (MVP), parses questions, and delivers a voice‑first exam experience with on‑device Whisper ASR for commands and offline TTS for playback. An embedded local LLM orchestrator (e.g., AnythingLLM) manages the exam flow (repeat, next, previous, slow, “ready to answer”) and no internet required.
+Why it matters: Current mainstream tools either require the internet, aren’t tuned for exam conditions, or demand costly human readers. iLumina demonstrates how Edge AI unlocks privacy‑preserving accessibility with low latency on Snapdragon® X NPU using ONNX Runtime (QNN EP)
+
+**Impact**
+Barrier: Students with dyslexia/visual impairments struggle to read printed exam text under time pressure.
+Constraints: Internet access is typically disallowed in exam rooms and privacy is mandatory.
+Status quo: Screen readers and OCR apps exist, but most are not purpose-built for exams or depend on the cloud.
+Impact: iLumina enables independent, fair participation in assessments, potentially benefiting students who need text‑to‑speech, slower pacing, repetition, and voice navigation. The system keeps exam content on device for maximum privacy and compliance with exam rules.
+
+In Short: **Desktop app for accessible, offline exam reading.**  
 iLumina uses a **PDF ➜ on‑device processing ➜ offline TTS** pipeline so exam content never leaves the machine. It adds **voice‑only navigation** and an **AnythingLLM “reader‑only” integration** that identifies questions but never provides answers.
 
 > **Why:** Support students with dyslexia or visual impairments while respecting strict exam rules (no internet, privacy by default, low‑latency, inclusive UX).
