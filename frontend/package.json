@@ -1,0 +1,56 @@
+{
+  "name": "ai-learning-assistant-frontend",
+  "version": "1.0.0",
+  "description": "Electron frontend for AI Learning Assistant",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "build-mac": "electron-builder --mac",
+    "build-linux": "electron-builder --linux"
+  },
+  "keywords": [
+    "electron",
+    "ai",
+    "learning",
+    "pdf",
+    "transcription",
+    "tts"
+  ],
+  "author": "AI Learning Assistant Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "axios": "^1.7.7"
+  },
+  "build": {
+    "appId": "com.ailearning.assistant",
+    "productName": "AI Learning Assistant",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "renderer/",
+      "assets/",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  }
+}
