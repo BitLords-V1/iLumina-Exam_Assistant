@@ -15,11 +15,6 @@ iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipelin
 | Mahima |  [@mahi397](https://github.com/mahi397) | NYU |
 | Gopala Krishna (GK) | [@igopalakrishna](https://github.com/igopalakrishna) | NYU |
 | Sarang | [@SARANG1018](https://github.com/SARANG1018) | NYU |
-
-
-**Project Lead:** Gopala Krishna Abba  
-**Maintainers:** Teammate 1, Teammate 2  
-**Acknowledgments:** Mentors / sponsors, etc.
 --
 
 ## Highlights
@@ -38,77 +33,22 @@ iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipelin
 
 ```text
 iLumina-anythingllm/
-├─backend/
-│  ├─src/
-│  │  └─workspaces.py
-│  ├─agentic_exam_workflow.py
-│  ├─anythingllm_config.yaml
-│  ├─anythingllm_integration.py
-│  ├─app.py
-│  ├─pdf_processor.py
-│  ├─requirements.txt
-│  ├─simple_pdf_processor.py
-│  ├─simple_whisper_processor.py
-│  ├─standalone_whisper_integration.py
-│  ├─test_integration.py
-│  ├─tts_engine.py
-│  └─whisper_voice_controller.py
-├─frontend/
-│  ├─renderer/
-│  │  ├─app.js
-│  │  ├─index.html
-│  │  ├─pipeline.html
-│  │  ├─styles.css
-│  │  └─test.html
-│  ├─main.js
-│  ├─package-lock.json
-│  └─package.json
-├─reference/
-│  └─WhisperApp.py
-├─src/
-│  ├─LiveTranscriber.py
-│  ├─LiveTranscriber_standalone.py
-│  ├─model.py
-│  ├─pdf_processor.py
-│  ├─standalone_model.py
-│  ├─standalone_whisper.py
-│  ├─test_mic.py
-│  ├─TestApplication.py
-│  └─tts_engine.py
-├─uploads/
-│  ├─68cc83cf-c60c-4836-9d1e-adce7e1e910c_Undergrad_English_Sample_5MCQ.pdf
-│  └─dc781842-3d1a-470d-8a1e-488f20208dd0_Undergrad_English_Sample_5MCQ.pdf
-├─.gitignore
-├─build-requirements.txt
-├─build.bat
-├─build.ps1
-├─BUILD_EXECUTABLE.md
-├─build_executable.py
-├─build_test_app.py
-├─CODE_OF_CONDUCT.md
-├─comprehensive_test.py
-├─CONTRIBUTING.md
-├─debug_anythingllm.py
-├─diagnose_executable.bat
-├─extract_mel_filters.py
-├─FINAL_REPORT.py
-├─LICENSE
-├─mel_filters.npz
-├─package-lock.json
-├─package.json
-├─README.md
-├─README_TEST_APP.md
-├─requirements.txt
-├─simple_test.py
-├─SUMMARY.md
-├─test-app-requirements.txt
-├─test_anythingllm_integration.py
-├─test_anythingllm_methods.py
-├─test_exam.py
-├─test_exam.txt
-├─test_functionality.py
-├─test_voice_improvements.py
-└─WhisperTranscriber.spec
+├─ backend/                     # Flask API (exam flow, PDF ingestion, TTS/STT, LLM glue)
+├─ frontend/                    # Electron desktop UI (renderer assets, app bootstrap)
+├─ src/                         # Standalone prototypes, utilities (Whisper/TTS/PDF tests)
+├─ uploads/                     # User-provided PDFs and runtime artifacts
+│  └─ .gitkeep                  # Keeps the empty folder tracked by Git
+├─ .gitignore                   # Git ignore rules
+├─ FINAL_REPORT.py              # Reporting/diagnostics script for runs & experiments
+├─ LICENSE                      # Project license (MIT)
+├─ README.md                    # Project documentation
+├─ WhisperTranscriber.spec      # PyInstaller build spec for native packaging
+├─ debug_anythingllm.py         # Local debug for AnythingLLM connectivity/workspace ops
+├─ diagnose_executable.bat      # Windows helper to gather logs/env when EXE misbehaves
+├─ extract_mel_filters.py       # Utility to generate mel filterbanks for Whisper
+├─ mel_filters.npz              # Precomputed mel filterbank weights
+├─ package.json                 # Electron/Node project manifest (scripts, deps)
+└─ package-lock.json            # Locked dependency graph for reproducible builds
 ```
 
 Key bits:
@@ -322,10 +262,6 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 ##Contributing
-
-Please read:
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-- [CONTRIBUTING.md](CONTRIBUTING.md)
 
 PRs that improve accessibility, add languages, or harden the offline story are especially welcome.
 
