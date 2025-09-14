@@ -185,6 +185,19 @@ boundary_reminder: "I can only read questions and options; I cannot help solve t
 The same YAML exposes **reading pace**, **option pauses**, and **question numbering** flags—tune them to your room policy.
 
 ---
+## User Journey & Voice UX
+
+- Setup: Invigilator loads the exam PDF into iLumina and starts Exam Mode.
+Flow:
+- Voice Instructions: The app explains commands: “repeat”, “repeat slower”, “proceed/next”, “previous”, “ready to answer”, “end exam”.
+- Question 1 Playback: TTS reads the question and (if applicable) the options.
+
+**Voice Commands**:
+- repeat / repeat slower : re‑read current content proceed / next : move to next question and read it.
+- previous : go back one question and read it.
+- ready to answer : iLumina records the dictated answer and playback confirmation.
+
+---
 
 ## How It Works
 
