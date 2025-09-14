@@ -257,6 +257,17 @@ python test_exam.py
 
 ---
 
+## System Architecture
+
+**Components**
+- Frontend (Windows App UI): Electron; large fonts, high‑contrast theme, simple controls.
+- PDF Ingestion & Parsing: PDF text extraction (e.g., pypdf/pdfminer.six).
+- Orchestrator (LLM Brain): AnythingLLM (local) to segment questions/options and manage dialogue rules & prompts.
+- ASR (Voice Commands): Whisper ONNX model; and ONNX Runtime with QNN Execution Provider on Snapdragon® X for latency/efficiency.
+- TTS: Windows SAPI / pyttsx3 for offline synthesis.
+- Persistence: Local exam_session, logs (optional), and export artifacts.
+---
+
 ## Acceleration (QNN on Snapdragon®)
 
 The “standalone” Whisper can run with **ONNX Runtime**. The code will try loading the **QNN Execution Provider** first and gracefully fall back to CPU if unavailable:
