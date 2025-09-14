@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Assistant - Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .status {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .file-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        
+        .questions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        
+        .current-question {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .transcription-area {
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            min-height: 100px;
+            text-align: left;
+        }
+        
+        h1 { margin-bottom: 30px; }
+        h2 { color: #ffd700; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 AI Learning Assistant - Test Interface</h1>
+        
+        <div class="status">
+            <h3>System Status</h3>
+            <div id="backend-status">Checking backend connection...</div>
+            <div id="user-info">Not logged in</div>
+        </div>
+        
+        <h2>📋 User Registration</h2>
+        <input type="text" id="user-name" placeholder="Enter your name" style="padding: 10px; margin: 10px; border-radius: 4px;">
+        <button onclick="registerUser()">Register User</button>
+        
+        <h2>📄 PDF Processing</h2>
+        <input type="file" id="file-input" accept=".pdf" style="margin: 10px;">
+        <button onclick="selectAndProcessFile()">Process PDF</button>
+        
+        <div id="file-info" class="file-info" style="display: none;">
+            <h4>File Information:</h4>
+            <div id="file-details"></div>
+        </div>
+        
+        <div id="questions-container" class="questions" style="display: none;">
+            <h4>Extracted Questions:</h4>
+            <div id="questions-list"></div>
+        </div>
+        
+        <h2>🎵 Audio Controls</h2>
+        <div id="current-question" class="current-question" style="display: none;">
+            <strong>Current Question:</strong>
+            <div id="question-text"></div>
+        </div>
+        
+        <div class="audio-controls">
+            <button onclick="generateAudio()" id="generate-btn" disabled>🔊 Generate Audio</button>
+            <button onclick="playAudio()" id="play-btn" disabled>▶️ Play</button>
+            <button onclick="pauseAudio()" id="pause-btn" disabled>⏸️ Pause</button>
+            <button onclick="stopAudio()" id="stop-btn" disabled>⏹️ Stop</button>
+            <button onclick="nextQuestion()" id="next-btn" disabled>⏭️ Next</button>
+        </div>
+        
+        <h2>🎤 Voice Transcription</h2>
+        <button onclick="startTranscription()" id="transcribe-btn">🎤 Start Listening</button>
+        <button onclick="stopTranscription()" id="stop-transcribe-btn" disabled>🛑 Stop Listening</button>
+        
+        <div id="transcription-area" class="transcription-area">
+            <strong>Your Response:</strong>
+            <div id="transcription-text">Click "Start Listening" to begin voice transcription...</div>
+        </div>
+        
+        <div id="debug-info" style="background: rgba(0,0,0,0.3); padding: 15px; margin-top: 20px; border-radius: 8px; text-align: left; font-size: 12px;">
+            <strong>Debug Info:</strong>
+            <div id="debug-text">Initializing...</div>
+        </div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        let currentUser = null;
+        let currentDocument = null;
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let isTranscribing = false;
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            debug('DOM loaded, checking backend...');
+            checkBackend();
+        });
+        
+        function debug(message) {
+            const debugDiv = document.getElementById('debug-text');
+            const timestamp = new Date().toLocaleTimeString();
+            debugDiv.innerHTML += `<br>[${timestamp}] ${message}`;
+            console.log(message);
+        }
+        
+        async function checkBackend() {
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'GET', '/api/health');
+                debug(`Backend health: ${JSON.stringify(response)}`);
+                
+                if (response.status === 'healthy') {
+                    document.getElementById('backend-status').innerHTML = '✅ Backend connected successfully';
+                    document.getElementById('backend-status').style.color = '#4caf50';
+                } else {
+                    document.getElementById('backend-status').innerHTML = '❌ Backend connection failed';
+                    document.getElementById('backend-status').style.color = '#f44336';
+                }
+            } catch (error) {
+                debug(`Backend error: ${error.message}`);
+                document.getElementById('backend-status').innerHTML = '❌ Backend connection error';
+                document.getElementById('backend-status').style.color = '#f44336';
+            }
+        }
+        
+        async function registerUser() {
+            const name = document.getElementById('user-name').value;
+            if (!name) {
+                alert('Please enter your name');
+                return;
+            }
+            
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/user/register', {
+                    name: name,
+                    preferences: {}
+                });
+                
+                debug(`User registration: ${JSON.stringify(response)}`);
+                
+                if (response.success) {
+                    currentUser = { name: name };
+                    document.getElementById('user-info').innerHTML = `✅ Logged in as: ${name}`;
+                    document.getElementById('user-info').style.color = '#4caf50';
+                } else {
+                    alert('Registration failed: ' + (response.error || 'Unknown error'));
+                }
+            } catch (error) {
+                debug(`Registration error: ${error.message}`);
+                alert('Registration error: ' + error.message);
+            }
+        }
+        
+        async function selectAndProcessFile() {
+            if (!currentUser) {
+                alert('Please register first');
+                return;
+            }
+            
+            try {
+                const filePath = await ipcRenderer.invoke('select-file', {
+                    filters: [{ name: 'PDF Files', extensions: ['pdf'] }]
+                });
+                
+                if (!filePath) return;
+                
+                debug(`Selected file: ${filePath}`);
+                
+                // Process the document
+                const response = await ipcRenderer.invoke('upload-file', filePath);
+                debug(`File processing: ${JSON.stringify(response)}`);
+                
+                if (response.success) {
+                    currentDocument = response.document;
+                    questions = response.questions || [];
+                    
+                    // Show file info
+                    document.getElementById('file-details').innerHTML = `
+                        <strong>File:</strong> ${response.document.filename}<br>
+                        <strong>Pages:</strong> ${response.document.pages}<br>
+                        <strong>Questions found:</strong> ${questions.length}
+                    `;
+                    document.getElementById('file-info').style.display = 'block';
+                    
+                    // Show questions
+                    if (questions.length > 0) {
+                        const questionsList = questions.map((q, i) => 
+                            `<div style="margin: 5px 0; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 4px;">
+                                <strong>Q${i+1}:</strong> ${q}
+                            </div>`
+                        ).join('');
+                        
+                        document.getElementById('questions-list').innerHTML = questionsList;
+                        document.getElementById('questions-container').style.display = 'block';
+                        
+                        // Enable controls and show first question
+                        showQuestion(0);
+                        document.getElementById('generate-btn').disabled = false;
+                        document.getElementById('next-btn').disabled = questions.length <= 1;
+                    }
+                } else {
+                    alert('File processing failed: ' + (response.error || 'Unknown error'));
+                }
+            } catch (error) {
+                debug(`File processing error: ${error.message}`);
+                alert('File processing error: ' + error.message);
+            }
+        }
+        
+        function showQuestion(index) {
+            if (index >= 0 && index < questions.length) {
+                currentQuestionIndex = index;
+                document.getElementById('question-text').textContent = questions[index];
+                document.getElementById('current-question').style.display = 'block';
+                debug(`Showing question ${index + 1}: ${questions[index]}`);
+            }
+        }
+        
+        async function generateAudio() {
+            if (!questions[currentQuestionIndex]) return;
+            
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/audio/generate', {
+                    text: questions[currentQuestionIndex],
+                    voice_settings: {
+                        rate: 150,
+                        volume: 0.8
+                    }
+                });
+                
+                debug(`Audio generation: ${JSON.stringify(response)}`);
+                
+                if (response.success) {
+                    document.getElementById('play-btn').disabled = false;
+                    document.getElementById('pause-btn').disabled = false;
+                    document.getElementById('stop-btn').disabled = false;
+                    alert('Audio generated successfully!');
+                } else {
+                    alert('Audio generation failed: ' + (response.error || 'Unknown error'));
+                }
+            } catch (error) {
+                debug(`Audio generation error: ${error.message}`);
+                alert('Audio generation error: ' + error.message);
+            }
+        }
+        
+        async function playAudio() {
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/audio/play');
+                debug(`Play audio: ${JSON.stringify(response)}`);
+            } catch (error) {
+                debug(`Play audio error: ${error.message}`);
+            }
+        }
+        
+        async function pauseAudio() {
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/audio/pause');
+                debug(`Pause audio: ${JSON.stringify(response)}`);
+            } catch (error) {
+                debug(`Pause audio error: ${error.message}`);
+            }
+        }
+        
+        async function stopAudio() {
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/audio/stop');
+                debug(`Stop audio: ${JSON.stringify(response)}`);
+            } catch (error) {
+                debug(`Stop audio error: ${error.message}`);
+            }
+        }
+        
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                showQuestion(currentQuestionIndex + 1);
+            } else {
+                showQuestion(0); // Loop back to first question
+            }
+        }
+        
+        async function startTranscription() {
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/transcription/start');
+                debug(`Start transcription: ${JSON.stringify(response)}`);
+                
+                if (response.success) {
+                    isTranscribing = true;
+                    document.getElementById('transcribe-btn').disabled = true;
+                    document.getElementById('stop-transcribe-btn').disabled = false;
+                    document.getElementById('transcription-text').textContent = 'Listening... Speak now!';
+                    
+                    // Poll for transcription updates
+                    pollTranscription();
+                } else {
+                    alert('Failed to start transcription: ' + (response.error || 'Unknown error'));
+                }
+            } catch (error) {
+                debug(`Start transcription error: ${error.message}`);
+                alert('Transcription error: ' + error.message);
+            }
+        }
+        
+        async function stopTranscription() {
+            try {
+                isTranscribing = false;
+                const response = await ipcRenderer.invoke('api-request', 'POST', '/api/transcription/stop');
+                debug(`Stop transcription: ${JSON.stringify(response)}`);
+                
+                document.getElementById('transcribe-btn').disabled = false;
+                document.getElementById('stop-transcribe-btn').disabled = true;
+            } catch (error) {
+                debug(`Stop transcription error: ${error.message}`);
+            }
+        }
+        
+        async function pollTranscription() {
+            if (!isTranscribing) return;
+            
+            try {
+                const response = await ipcRenderer.invoke('api-request', 'GET', '/api/transcription/status');
+                
+                if (response.success && response.text) {
+                    document.getElementById('transcription-text').textContent = response.text;
+                }
+                
+                // Continue polling
+                setTimeout(pollTranscription, 1000);
+            } catch (error) {
+                debug(`Transcription polling error: ${error.message}`);
+                setTimeout(pollTranscription, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

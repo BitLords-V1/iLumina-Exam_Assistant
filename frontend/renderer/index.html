@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>AI Learning Assistant</h1>
+                </div>
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <p class="loading-text">Initializing system...</p>
+            </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen">
+            <div class="welcome-content">
+                <div class="welcome-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h1>Welcome to AI Learning Assistant</h1>
+                    <p class="subtitle">Transform your PDFs into interactive learning experiences</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Smart PDF Processing</h3>
+                        <p>Extract text and questions from any PDF with OCR support</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-volume-up"></i>
+                        <h3>Text-to-Speech</h3>
+                        <p>Listen to questions with customizable speed and voice options</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-microphone"></i>
+                        <h3>Voice Transcription</h3>
+                        <p>Speak your answers and see them transcribed in real-time</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI-Powered</h3>
+                        <p>Intelligent question detection and learning optimization</p>
+                    </div>
+                </div>
+
+                <button id="get-started-btn" class="btn btn-primary btn-large">
+                    <i class="fas fa-arrow-right"></i>
+                    Get Started
+                </button>
+            </div>
+        </div>
+
+        <!-- User Registration Screen -->
+        <div id="user-screen" class="screen">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-user"></i> Tell us about yourself</h2>
+                    <p>Help us personalize your learning experience</p>
+                </div>
+
+                <form id="user-form">
+                    <div class="form-group">
+                        <label for="user-name">
+                            <i class="fas fa-user"></i>
+                            Name *
+                        </label>
+                        <input type="text" id="user-name" name="name" required 
+                               placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-email">
+                            <i class="fas fa-envelope"></i>
+                            Email (Optional)
+                        </label>
+                        <input type="email" id="user-email" name="email" 
+                               placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="learning-goal">
+                            <i class="fas fa-target"></i>
+                            Learning Goal
+                        </label>
+                        <select id="learning-goal" name="learning_goal">
+                            <option value="">Select your primary goal</option>
+                            <option value="exam-prep">Exam Preparation</option>
+                            <option value="research">Research & Study</option>
+                            <option value="language-learning">Language Learning</option>
+                            <option value="professional">Professional Development</option>
+                            <option value="accessibility">Accessibility Support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-cog"></i>
+                            Preferences
+                        </label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="auto-question-detection" name="auto_questions" checked>
+                                <span class="checkmark"></span>
+                                Automatically detect questions in documents
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="enable-ocr" name="enable_ocr">
+                                <span class="checkmark"></span>
+                                Enable OCR for scanned documents
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="voice-feedback" name="voice_feedback" checked>
+                                <span class="checkmark"></span>
+                                Enable voice response transcription
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="back-to-welcome" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i>
+                            Continue
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Application Screen -->
+        <div id="main-screen" class="screen">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <h1><i class="fas fa-brain"></i> AI Learning Assistant</h1>
+                </div>
+                <div class="header-center">
+                    <div id="connection-status" class="status-indicator">
+                        <i class="fas fa-wifi"></i>
+                        <span>Connected</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span id="user-greeting">Hello, User!</span>
+                    <button id="settings-btn" class="btn btn-icon">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Sidebar Navigation -->
+                <nav class="sidebar">
+                    <ul class="nav-menu">
+                        <li class="nav-item active" data-section="upload">
+                            <i class="fas fa-upload"></i>
+                            <span>Upload Document</span>
+                        </li>
+                        <li class="nav-item" data-section="questions">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Questions</span>
+                            <span class="badge" id="questions-count">0</span>
+                        </li>
+                        <li class="nav-item" data-section="audio">
+                            <i class="fas fa-volume-up"></i>
+                            <span>Audio Control</span>
+                        </li>
+                        <li class="nav-item" data-section="transcription">
+                            <i class="fas fa-microphone"></i>
+                            <span>Voice Response</span>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- Upload Section -->
+                    <section id="upload-section" class="content-section active">
+                        <div class="section-header">
+                            <h2><i class="fas fa-upload"></i> Upload Document</h2>
+                            <p>Select a PDF file to begin your learning session</p>
+                        </div>
+
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h3>Drop your PDF here or click to select</h3>
+                                <p>Supports text-based and scanned PDFs up to 50MB</p>
+                                <button id="select-file-btn" class="btn btn-primary">
+                                    <i class="fas fa-folder-open"></i>
+                                    Select PDF File
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="upload-options" id="upload-options" style="display: none;">
+                            <h3>Processing Options</h3>
+                            <div class="option-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="use-ocr-upload">
+                                    <span class="checkmark"></span>
+                                    Use OCR for image-based PDFs
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="extract-questions-upload" checked>
+                                    <span class="checkmark"></span>
+                                    Automatically extract questions
+                                </label>
+                            </div>
+                            <button id="process-file-btn" class="btn btn-success">
+                                <i class="fas fa-cogs"></i>
+                                Process Document
+                            </button>
+                        </div>
+
+                        <div class="processing-status" id="processing-status" style="display: none;">
+                            <div class="status-content">
+                                <div class="spinner"></div>
+                                <h3>Processing Document...</h3>
+                                <p id="processing-message">Extracting text from PDF...</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Questions Section -->
+                    <section id="questions-section" class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-question-circle"></i> Questions</h2>
+                            <p>Navigate through extracted questions</p>
+                        </div>
+
+                        <div class="questions-container">
+                            <div class="question-display">
+                                <div class="question-text" id="current-question">
+                                    Select a document to view questions
+                                </div>
+                            </div>
+
+                            <div class="question-controls">
+                                <div class="question-nav">
+                                    <button id="prev-question" class="btn btn-icon" disabled>
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <span id="question-counter">Question 0 of 0</span>
+                                    <button id="next-question" class="btn btn-icon" disabled>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Audio Section -->
+                    <section id="audio-section" class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-volume-up"></i> Audio Controls</h2>
+                            <p>Listen to questions with customizable settings</p>
+                        </div>
+
+                        <div class="audio-controls">
+                            <div class="speed-control">
+                                <label>
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Reading Speed: <span id="speed-value">1.0x</span>
+                                </label>
+                                <input type="range" id="speed-slider" min="0.5" max="2.0" step="0.1" value="1.0">
+                            </div>
+
+                            <div class="playback-controls">
+                                <button id="play-btn" class="btn btn-success btn-large" disabled>
+                                    <i class="fas fa-play"></i>
+                                    Play
+                                </button>
+                                <button id="pause-btn" class="btn btn-warning" disabled>
+                                    <i class="fas fa-pause"></i>
+                                    Pause
+                                </button>
+                                <button id="stop-btn" class="btn btn-danger" disabled>
+                                    <i class="fas fa-stop"></i>
+                                    Stop
+                                </button>
+                                <button id="repeat-btn" class="btn btn-info" disabled>
+                                    <i class="fas fa-redo"></i>
+                                    Repeat
+                                </button>
+                            </div>
+
+                            <div class="audio-status" id="audio-status">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Ready to play</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Transcription Section -->
+                    <section id="transcription-section" class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-microphone"></i> Voice Response</h2>
+                            <p>Speak your answers and see them transcribed</p>
+                        </div>
+
+                        <div class="transcription-controls">
+                            <button id="start-transcription" class="btn btn-primary btn-large">
+                                <i class="fas fa-microphone"></i>
+                                Start Listening
+                            </button>
+                            <button id="stop-transcription" class="btn btn-danger" disabled style="display: none;">
+                                <i class="fas fa-stop"></i>
+                                Stop Listening
+                            </button>
+                        </div>
+
+                        <div class="transcription-status" id="transcription-status">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Ready to listen</span>
+                        </div>
+
+                        <div class="transcription-result">
+                            <label>Your Response:</label>
+                            <textarea id="transcription-text" placeholder="Your spoken response will appear here..." readonly></textarea>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
