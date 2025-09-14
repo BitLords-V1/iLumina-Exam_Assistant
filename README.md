@@ -22,7 +22,7 @@ iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipelin
 
 - **Hands‑free exam mode:** Voice commands like “repeat”, “repeat slower”, “ready to answer”, “next/previous question”.
 - **Offline Text‑to‑Speech:** `pyttsx3` + `pygame` with voice & rate controls.
-- **PDF ingestion:** PyMuPDF text extraction; optional OCR (EasyOCR) for scans.
+- **PDF ingestion:** PyMuPDF text extraction.
 - **Question detection via AnythingLLM:** Extracts questions/options from the PDF text and reads them aloud; **explicitly avoids giving hints/answers**.
 - **Whisper‑based speech‑to‑text:** Live voice input with ONNX/Torch “standalone” Whisper; attempts **QNN (Snapdragon® NPU) ➜ CPU fallback**.
 - **Clean API + Electron UI:** Flask backend at `127.0.0.1:5000` with an Electron front‑end.
