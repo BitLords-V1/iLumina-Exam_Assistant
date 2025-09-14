@@ -15,7 +15,8 @@ iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipelin
 | Mahima |  [@mahi397](https://github.com/mahi397) | NYU |
 | Gopala Krishna (GK) | [@igopalakrishna](https://github.com/igopalakrishna) | NYU |
 | Sarang | [@SARANG1018](https://github.com/SARANG1018) | NYU |
---
+
+---
 
 ## Highlights
 
