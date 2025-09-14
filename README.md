@@ -24,6 +24,7 @@ Impact: iLumina enables independent, fair participation in assessments, potentia
 - Privacy: No network calls and all processing on device.
 - Answer Capture: Voice‑dictated answers stored locally.
 - Accessibility UX: Pace controls, repetition, high‑contrast UI, keyboard‑only (or hardware) operation.
+
 **Edge AI Angle**
 - ON‑device inference (ASR/LLM heuristics) via ONNX Runtime (QNN EP) on Snapdragon® X Elite.
 - Low‑latency interactions for real‑time exam navigation.
