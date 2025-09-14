@@ -1,0 +1,15 @@
+# Flask Backend Requirements
+Flask==3.0.3
+Flask-CORS==5.0.0
+Werkzeug==3.0.4
+
+# Core dependencies (already installed in main project)
+# PyMuPDF==1.23.26
+# easyocr==1.7.1
+# pyttsx3==2.90
+# pygame==2.6.0
+# PyYAML==6.0.2
+# numpy
+# torch
+# torchvision
+# onnxruntime
