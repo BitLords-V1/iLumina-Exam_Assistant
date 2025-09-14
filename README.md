@@ -266,6 +266,15 @@ python test_exam.py
 - ASR (Voice Commands): Whisper ONNX model; and ONNX Runtime with QNN Execution Provider on Snapdragon® X for latency/efficiency.
 - TTS: Windows SAPI / pyttsx3 for offline synthesis.
 - Persistence: Local exam_session, logs (optional), and export artifacts.
+
+---
+## Languages & Frameworks
+
+- Python (backend services), Node/Electron
+- ONNX Runtime (QNN EP on Snapdragon® X Elite), Whisper ONNX
+- pyttsx3 or Windows SAPI for TTS
+- pypdf / pdfminer.six (text) 
+- Local LLM orchestrator: AnythingLLM (or LM Studio) configured offline
 ---
 
 ## Acceleration (QNN on Snapdragon®)
