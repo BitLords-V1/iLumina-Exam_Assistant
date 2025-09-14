@@ -337,3 +337,7 @@ PRs that improve accessibility, add languages, or harden the offline story are e
 - **Qualcomm Whisper and EverythingLLM** (speech‑to‑text)
 - **Qualcomm AI assets** and QNN EP notes for NPU acceleration
 - **PyMuPDF**, **EasyOCR**, **pyttsx3**, **pygame**, and the **Electron** community
+
+---
+**THANK YOU**
+**BUILT WITH ❤️by TEAM iLUMINA**  
