@@ -331,6 +331,20 @@ MIT — see [LICENSE](LICENSE).
 PRs that improve accessibility, add languages, or harden the offline story are especially welcome.
 
 ---
+## Appendix - Resources (DevRel & Samples)
+
+- Qualcomm Developer Home : https://qualcomm.com/developer
+- Windows on Snapdragon Core Docs : https://docs.qualcomm.com/bundle/publicresource/topics/80-62010-1/core-app-overview-.html?product=1601111740057789
+- Windows on Snapdragon AI Docs : https://docs.qualcomm.com/bundle/publicresource/topics/80-62010-1/ai-app-development.html?product=1601111740057789
+
+**DevRel Edge AI Sample Apps**
+
+- NPU Chatbot w/ AnythingLLM (GenAI) : https://github.com/thatrandomfrenchdude/simple_npu_chatbot
+- Edge Agent w/ LM Studio (GenAI) : https://github.com/thatrandomfrenchdude/local-agent
+- Live Transcription w/ AI Hub : https://github.com/thatrandomfrenchdude/simple-whisper-transcription
+- Packaging Guide (Python/JS/C/C#/C++) : https://github.com/carrycooldude/onnx-msix-samples
+
+---
 
 ## Acknowledgments
 
