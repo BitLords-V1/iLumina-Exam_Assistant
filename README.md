@@ -6,15 +6,15 @@ iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipelin
 > **Why:** Support students with dyslexia or visual impairments while respecting strict exam rules (no internet, privacy by default, low‑latency, inclusive UX).
 
 ---
-## 👥 Authors & Maintainers
+## Authors & Maintainers
 
 | Name | GitHub | Affiliation |
 |---|---|---|
-| Rushali | [@<handle>](https://github.com/rushalimoteria8) | NYU |
-| Rujuta | [@<handle>](https://github.com/Rajoshi11) | NYU |
-| Mahima |  [@<handle>](https://github.com/mahi397) | NYU |
-| Gopala Krishna (GK) | [@<handle>](https://github.com/igopalakrishna) | NYU |
-| Sarang | [@<handle>](https://github.com/SARANG1018) | NYU |
+| Rushali | [@rushalimoteria8](https://github.com/rushalimoteria8) | NYU |
+| Rujuta | [@Rajoshi11](https://github.com/Rajoshi11) | NYU |
+| Mahima |  [@mahi397](https://github.com/mahi397) | NYU |
+| Gopala Krishna (GK) | [@igopalakrishna](https://github.com/igopalakrishna) | NYU |
+| Sarang | [@SARANG1018](https://github.com/SARANG1018) | NYU |
 
 
 **Project Lead:** Gopala Krishna Abba  
