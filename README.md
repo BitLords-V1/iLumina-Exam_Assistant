@@ -73,7 +73,7 @@ Key bits:
 ### 2) Clone & Python environment
 
 ```bash
-git clone <your-repo-url>.git
+git clone https://github.com/BitLords-V1/iLumina-Exam_Assistant.git
 cd iLumina-anythingllm
 
 # create and activate a venv
@@ -261,7 +261,7 @@ MIT — see [LICENSE](LICENSE).
 
 ---
 
-##Contributing
+## Contributing
 
 PRs that improve accessibility, add languages, or harden the offline story are especially welcome.
 
@@ -269,6 +269,6 @@ PRs that improve accessibility, add languages, or harden the offline story are e
 
 ## Acknowledgments
 
-- **Qualcomm Whisper and EverythingLLM ** (speech‑to‑text)
+- **Qualcomm Whisper and EverythingLLM** (speech‑to‑text)
 - **Qualcomm AI assets** and QNN EP notes for NPU acceleration
 - **PyMuPDF**, **EasyOCR**, **pyttsx3**, **pygame**, and the **Electron** community
