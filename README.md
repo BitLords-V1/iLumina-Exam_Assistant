@@ -14,6 +14,22 @@ Constraints: Internet access is typically disallowed in exam rooms and privacy i
 Status quo: Screen readers and OCR apps exist, but most are not purpose-built for exams or depend on the cloud.
 Impact: iLumina enables independent, fair participation in assessments, potentially benefiting students who need text‑to‑speech, slower pacing, repetition, and voice navigation. The system keeps exam content on device for maximum privacy and compliance with exam rules.
 
+## Solution Overview
+- MVP Mode (Primary): PDF Upload → Parse/Segment → Voice‑guided exam
+
+**Key Capabilities**
+- Offline ASR (commands): Whisper ONNX running locally for command recognition (“repeat”, “slower”, “next”, “previous”, “ready to answer”).
+- Offline TTS: Windows SAPI / pyttsx3 for clear, adjustable speech output (rate, pitch, volume).
+- Local LLM Orchestrator: AnythingLLM (or equivalent) to segment PDF text into question blocks and manage dialog flow/state.
+- Privacy: No network calls and all processing on device.
+- Answer Capture: Voice‑dictated answers stored locally.
+- Accessibility UX: Pace controls, repetition, high‑contrast UI, keyboard‑only (or hardware) operation.
+**Edge AI Angle**
+- ON‑device inference (ASR/LLM heuristics) via ONNX Runtime (QNN EP) on Snapdragon® X Elite.
+- Low‑latency interactions for real‑time exam navigation.
+- Energy‑aware pipelines intended to run efficiently on the NPU as appropriate.
+
+
 In Short: **Desktop app for accessible, offline exam reading.**  
 iLumina uses a **PDF ➜ on‑device processing ➜ offline TTS** pipeline so exam content never leaves the machine. It adds **voice‑only navigation** and an **AnythingLLM “reader‑only” integration** that identifies questions but never provides answers.
 
