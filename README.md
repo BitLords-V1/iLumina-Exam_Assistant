@@ -1,7 +1,7 @@
 # iLumina – Privacy‑Preserving Exam Reader (w/ AnythingLLM)
 
 **Desktop app for accessible, offline exam reading.**  
-iLumina uses a **webcam/PDF ➜ on‑device processing ➜ offline TTS** pipeline so exam content never leaves the machine. It adds **voice‑only navigation** and an **AnythingLLM “reader‑only” integration** that identifies questions but never provides answers.
+iLumina uses a **PDF ➜ on‑device processing ➜ offline TTS** pipeline so exam content never leaves the machine. It adds **voice‑only navigation** and an **AnythingLLM “reader‑only” integration** that identifies questions but never provides answers.
 
 > **Why:** Support students with dyslexia or visual impairments while respecting strict exam rules (no internet, privacy by default, low‑latency, inclusive UX).
 
